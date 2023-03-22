@@ -1,5 +1,3 @@
-24_hours.c
-
 #include "main.h"
 
 /**
