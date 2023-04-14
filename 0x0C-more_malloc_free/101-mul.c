@@ -2,11 +2,17 @@
 #include <stdio.h>
 #include "main.h"
 
-
+/**
+ * is_number - checks if a string is a number
+ * @s: the string to check
+ *
+ * Return: 1 if s is a number, 0 otherwise
+ */
 
 int is_number(char *s)
 {
 	int i;
+
 	for (i = 0; s[i]; i++)
 	{
 		if (!(s[i] >= '0' && s[i] <= '9'))
@@ -15,33 +21,48 @@ int is_number(char *s)
 	return (1);
 }
 
-int main(int ac, char *av[])
+/**
+ * error - prints an error message and exits the program with code 98
+ */
+
+void error(void)
 {
-	int len1 = 0, len2 = 0, *result;
-	char *s1, *s2;
-	int digit1, digit2, carry;
-	int checker = 0;
+	printf("Error\n");
+	exit(98);
+}
+
+/**
+ * str_len - calculates the length of a string
+ * @str: the string to calculate the length of
+ *
+ * Return: the length of str
+ */
+
+int str_len(char *str)
+{
+	int i = 0;
+
+	while (str[i])
+		i++;
+	return (i);
+}
+
+/**
+ * compute_mult - computes the product of two numbers represented as strings
+ * @len1: the length of the first number string
+ * @len2: the length of the second number string
+ * @s1: the first number string
+ * @s2: the second number string
+ * @result: an array to store the resulting product
+ */
+
+void compute_mult(int len1, int len2, char *s1, char *s2, int *result)
+{
+	int carry = 0;
+	int digit1 = 0;
+	int digit2 = 0;
 	int i, j;
 
-	if (ac != 3)
-	{
-		printf("Error");
-		exit(98);
-	}
-	if (!(is_number(av[1]) && is_number(av[2])))
-	{
-		printf("Error");
-		exit(98);
-	}
-	s1 = av[1];
-	s2 = av[2];
-
-	while (s1[len1])
-		len1++;
-	while (s2[len2])
-		len2++;
-
-	result = malloc(sizeof(int) * (len1 + len2 + 1));
 	for (i = 0; i < len1 + len2 + 1; i++)
 		result[i] = 0;
 
@@ -59,6 +80,35 @@ int main(int ac, char *av[])
 		if (carry > 0)
 			result[i] = carry;
 	}
+}
+
+/**
+ * main - the entry point of the program
+ * @ac: the number of command-line arguments
+ * @av: an array of strings representing the command-line arguments
+ *
+ * Return: 0 on success, 98 on failure
+ */
+
+int main(int ac, char *av[])
+{
+	int len1 = 0, len2 = 0, *result;
+	char *s1, *s2;
+	int checker = 0;
+	int i;
+
+	if (ac != 3)
+		error();
+	if (!(is_number(av[1]) && is_number(av[2])))
+		error();
+	s1 = av[1];
+	s2 = av[2];
+	len1 = str_len(s1);
+	len2 = str_len(s2);
+	result = malloc(sizeof(int) * (len1 + len2 + 1));
+	for (i = 0; i < len1 + len2 + 1; i++)
+		result[i] = 0;
+	compute_mult(len1, len2, s1, s2, result);
 	for (i = 0; i < len1 + len2; i++)
 	{
 		if (result[i])
