@@ -116,9 +116,5 @@ int main(int ac, char *av[])
 		if (checker)
 			putchar(result[i] + 48);
 	}
-	if (checker == 0)
-		_putchar('0');
-	_putchar('\n');
-	free(result);
 	return (0);
 }
