@@ -30,7 +30,7 @@ int _strlen(char *s)
  *
  * Return: the pointer to dest
  */
-char *_strcpy(char *destee, char *src)
+char *_strcpy(char *dest, char *src)
 {
 	int len, i;
 
@@ -43,11 +43,11 @@ char *_strcpy(char *destee, char *src)
 
 	for (i = 0; i < len; i++)
 	{
-		destee[i] = src[i];
+		dest[i] = src[i];
 	}
-	destee[i] = '\0';
+	dest[i] = '\0';
 
-	return (destee);
+	return (dest);
 }
 
 /**
